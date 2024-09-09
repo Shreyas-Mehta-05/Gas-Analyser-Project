@@ -167,6 +167,7 @@ This section helps you quickly test whether your MQ135 sensor is working correct
    - **GND**: Connect to a GND pin on the ESP32.
    - **Analog Pin (A0)**: Connect the Analog output of the MQ135 to pin A0 on the ESP32 via a **1K resistor** to protect the GPIO.
 
+![MQ135 Sensor Circuit](images/esp32-mq135.png)
 ### **Test Code**
 
 This simple code helps you check if the sensor is reading values and displaying them on the Serial Monitor.
@@ -217,4 +218,153 @@ void loop() {
 ### **Next Steps: Integrating into the Full Project**
 
 Once you verify that the sensor is working, you can proceed with integrating it into your full project using the MQ135 with the AskSensors platform and the code outlined in the original README.
+
+
+## **Appendix: MQ135 Sensor: Quick Test and Integration**
+
+### **Purpose**
+
+This section is intended to help you quickly test the MQ135 sensor’s functionality before integrating it into the broader gas analyzer system. The goal is to ensure the sensor is operational and reading data correctly.
+
+### **Materials Needed**
+
+- ESP32 Development Board
+- MQ135 Gas Sensor
+- 1K Resistor
+- Jumper Wires
+- USB Micro Cable
+- Computer with Arduino IDE installed
+
+### **Circuit Connections**
+
+1. **MQ135 Sensor to ESP32**:
+   - **VCC**: Connect to the 5V pin on the ESP32.
+   - **GND**: Connect to a GND pin on the ESP32.
+   - **Analog Pin (A0)**: Connect the Analog output of the MQ135 to the ESP32's pin A0 through a 1K resistor (for GPIO protection).
+
+### **Test Code**
+
+This simple code checks whether the sensor is reading values correctly and displays the data on the Serial Monitor.
+
+```cpp
+/*
+* Quick test to check MQ135 sensor functionality with ESP32
+* Author: Swam Singla
+*/
+
+const int mq135_pin = A0;  // Analog pin connected to MQ135
+int sensorValue;
+
+void setup() {
+  Serial.begin(115200);  // Start serial communication at baud rate 115200
+  pinMode(mq135_pin, INPUT);
+  Serial.println("MQ135 Sensor Test Started");
+}
+
+void loop() {
+  // Read the value from the MQ135 sensor
+  sensorValue = analogRead(mq135_pin);
+
+  // Print the sensor value to the Serial Monitor
+  Serial.print("MQ135 Reading: ");
+  Serial.println(sensorValue);
+
+  // Delay for a second before the next reading
+  delay(1000);
+}
+```
+
+### **Testing Instructions**
+
+1. **Upload the Code**:
+   - Connect the ESP32 to your computer.
+   - Upload the above code using the Arduino IDE.
+
+2. **Open the Serial Monitor**:
+   - After uploading, open the Serial Monitor (set the baud rate to 115200).
+   - You should see sensor values being printed.
+
+3. **Interpreting Sensor Readings**:
+   - Values typically range between 0 and 1023 (ADC values).
+   - Higher values indicate higher gas concentrations (e.g., CO₂, NH₃, alcohol).
+   - Use these readings to verify sensor functionality.
+
+### **Next Steps**
+
+After confirming that the sensor works, you can integrate it into the full gas analyzer project using the AskSensors platform and more advanced code.
+
+
+
+## **Appendix: MQ2 Sensor: Quick Test and Integration**
+
+### **Purpose**
+
+This section is designed to help you quickly verify the functionality of the MQ2 sensor before integrating it into your gas analyzer system. It will ensure that the sensor is reading data correctly and detecting gases such as methane, LPG, and smoke.
+
+### **Materials Needed**
+
+- ESP32 Development Board
+- MQ2 Gas Sensor
+- 1K Resistor
+- Jumper Wires
+- USB Micro Cable
+- Computer with Arduino IDE installed
+
+### **Circuit Connections**
+
+1. **MQ2 Sensor to ESP32**:
+   - **VCC**: Connect to the 5V pin on the ESP32.
+   - **GND**: Connect to a GND pin on the ESP32.
+   - **Analog Pin (A0)**: Connect the Analog output of the MQ2 to the ESP32's pin A0 via a 1K resistor.
+
+### **Test Code**
+
+This code allows you to test the MQ2 sensor by printing gas detection values on the Serial Monitor.
+
+```cpp
+/*
+* Quick test to check MQ2 sensor functionality with ESP32
+* Author: Shubham Goel
+*/
+
+const int mq2_pin = A0;  // Analog pin connected to MQ2
+int sensorValue;
+
+void setup() {
+  Serial.begin(115200);  // Start serial communication at baud rate 115200
+  pinMode(mq2_pin, INPUT);
+  Serial.println("MQ2 Sensor Test Started");
+}
+
+void loop() {
+  // Read the value from the MQ2 sensor
+  sensorValue = analogRead(mq2_pin);
+
+  // Print the sensor value to the Serial Monitor
+  Serial.print("MQ2 Reading: ");
+  Serial.println(sensorValue);
+
+  // Delay for a second before the next reading
+  delay(1000);
+}
+```
+
+### **Testing Instructions**
+
+1. **Upload the Code**:
+   - Connect the ESP32 to your computer.
+   - Upload the code to the ESP32 using the Arduino IDE.
+
+2. **Open the Serial Monitor**:
+   - Once uploaded, open the Serial Monitor (set the baud rate to 115200).
+   - You should observe the sensor readings being printed.
+
+3. **Interpreting Sensor Readings**:
+   - Values should range between 0 and 1023 (ADC values).
+   - Higher values indicate the presence of gases like methane, LPG, or smoke.
+   - This confirms that the sensor is operational.
+
+### **Next Steps**
+
+After verifying that the MQ2 sensor works, you can proceed to integrate it into the larger gas analyzer system and perform more advanced gas detection.
 
