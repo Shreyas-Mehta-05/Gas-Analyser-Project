@@ -7,6 +7,22 @@ Air quality management is a critical concern, particularly in industrial environ
 
 The system leverages the ESP32 microcontroller for real-time data collection and monitoring via Wi-Fi or Bluetooth. By utilizing low-cost MQ sensors, the solution ensures affordability without compromising on essential features, such as threshold-based alerts, data logging, and cloud connectivity for remote supervision.
 
+## **Index**
+- [**Introduction**](#introduction)
+- [**Key Sensors**](#key-sensors)
+- [**Project Overview**](#project-overview)
+- [**Hardware Requirements**](#hardware-requirements)
+- [**Software Requirements**](#software-requirements)
+- [**Circuit Diagram**](#circuit-diagram)
+- [**Installation**](#installation)
+- [**Usage**](#usage)
+- [**Testing and Validation**](#testing-and-validation)
+- [**Troubleshooting**](#troubleshooting)
+- [**Future Enhancements**](#future-enhancements)
+- [**Contributing**](#contributing)
+- [**License**](#license)
+- [**Appendix: Additional Resources**](#appendix-additional-resources)
+
 
 ### **Key Sensors**
 Here’s a table comparing the chosen sensors (MQ2, MQ7, and MQ135) with some alternatives, along with reasons why these sensors were selected:
