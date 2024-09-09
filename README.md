@@ -158,7 +158,7 @@ This simple code helps you check if the sensor is reading values and displaying 
 ```cpp
 /*
 * Quick test to check MQ135 sensor functionality with ESP32
-* Author: Your Name
+* Author: Shreyas Mehta
 */
 
 const int mq135_pin = A0;  // Analog pin connected to MQ135
