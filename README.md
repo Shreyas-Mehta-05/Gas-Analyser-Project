@@ -220,16 +220,16 @@ void loop() {
 Once you verify that the sensor is working, you can proceed with integrating it into your full project using the MQ135 with the AskSensors platform and the code outlined in the original README.
 
 
-## **Appendix: MQ135 Sensor: Quick Test and Integration**
+## **Appendix: MQ7 Sensor: Quick Test and Integration**
 
 ### **Purpose**
 
-This section is intended to help you quickly test the MQ135 sensor’s functionality before integrating it into the broader gas analyzer system. The goal is to ensure the sensor is operational and reading data correctly.
+This section is intended to help you quickly test the MQ7 sensor’s functionality before integrating it into the broader gas analyzer system. The goal is to ensure the sensor is operational and reading carbon monoxide (CO) levels correctly.
 
 ### **Materials Needed**
 
 - ESP32 Development Board
-- MQ135 Gas Sensor
+- MQ7 Gas Sensor
 - 1K Resistor
 - Jumper Wires
 - USB Micro Cable
@@ -237,36 +237,36 @@ This section is intended to help you quickly test the MQ135 sensor’s functiona
 
 ### **Circuit Connections**
 
-1. **MQ135 Sensor to ESP32**:
+1. **MQ7 Sensor to ESP32**:
    - **VCC**: Connect to the 5V pin on the ESP32.
    - **GND**: Connect to a GND pin on the ESP32.
-   - **Analog Pin (A0)**: Connect the Analog output of the MQ135 to the ESP32's pin A0 through a 1K resistor (for GPIO protection).
+   - **Analog Pin (A0)**: Connect the Analog output of the MQ7 to the ESP32's pin A0 through a 1K resistor (for GPIO protection).
 
 ### **Test Code**
 
-This simple code checks whether the sensor is reading values correctly and displays the data on the Serial Monitor.
+This code checks whether the MQ7 sensor is reading carbon monoxide levels and displays the data on the Serial Monitor.
 
 ```cpp
 /*
-* Quick test to check MQ135 sensor functionality with ESP32
+* Quick test to check MQ7 sensor functionality with ESP32
 * Author: Swam Singla
 */
 
-const int mq135_pin = A0;  // Analog pin connected to MQ135
+const int mq7_pin = A0;  // Analog pin connected to MQ7
 int sensorValue;
 
 void setup() {
   Serial.begin(115200);  // Start serial communication at baud rate 115200
-  pinMode(mq135_pin, INPUT);
-  Serial.println("MQ135 Sensor Test Started");
+  pinMode(mq7_pin, INPUT);
+  Serial.println("MQ7 Sensor Test Started");
 }
 
 void loop() {
-  // Read the value from the MQ135 sensor
-  sensorValue = analogRead(mq135_pin);
+  // Read the value from the MQ7 sensor
+  sensorValue = analogRead(mq7_pin);
 
   // Print the sensor value to the Serial Monitor
-  Serial.print("MQ135 Reading: ");
+  Serial.print("MQ7 Reading: ");
   Serial.println(sensorValue);
 
   // Delay for a second before the next reading
@@ -286,12 +286,12 @@ void loop() {
 
 3. **Interpreting Sensor Readings**:
    - Values typically range between 0 and 1023 (ADC values).
-   - Higher values indicate higher gas concentrations (e.g., CO₂, NH₃, alcohol).
-   - Use these readings to verify sensor functionality.
+   - Higher values indicate higher concentrations of carbon monoxide (CO).
+   - Use these readings to verify the sensor's functionality.
 
 ### **Next Steps**
 
-After confirming that the sensor works, you can integrate it into the full gas analyzer project using the AskSensors platform and more advanced code.
+After confirming that the sensor works, you can integrate it into the full gas analyzer project using the AskSensors platform or other advanced systems for real-time gas monitoring.
 
 
 
@@ -300,6 +300,9 @@ After confirming that the sensor works, you can integrate it into the full gas a
 ### **Purpose**
 
 This section is designed to help you quickly verify the functionality of the MQ2 sensor before integrating it into your gas analyzer system. It will ensure that the sensor is reading data correctly and detecting gases such as methane, LPG, and smoke.
+
+### **Principle of Working**
+Principle. The MQ-2 sensor works on the `principle of resistance changes in the presence of different gases`
 
 ### **Materials Needed**
 
@@ -367,4 +370,24 @@ void loop() {
 ### **Next Steps**
 
 After verifying that the MQ2 sensor works, you can proceed to integrate it into the larger gas analyzer system and perform more advanced gas detection.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
