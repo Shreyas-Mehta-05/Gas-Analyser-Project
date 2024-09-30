@@ -96,3 +96,5 @@ print("Adjusted R-squared:", adjusted_r_squared)
 y_pred = model.predict(X)
 mse = mean_squared_error(y, y_pred)
 print("Mean Squared Error:", mse)
+
+
