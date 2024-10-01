@@ -28,7 +28,7 @@ def getRatio(ppm):
 
 experimentVal = getRatio(8)*f(27,77)/f(20,65)
 meanRs=15033.893448275863
-meanRs=26033.893448275863
+meanRs=4000.893448275863
 calculatedRo=meanRs/experimentVal
 print("Calculated Ro: ", calculatedRo)
 
@@ -40,4 +40,6 @@ def formula(H,T,Rs,Ro=2962.049073305054):
     return  (101.24201*(Rs/Ro)**(-1.4792899))*(f(20,65)/f(T,H))**(-1.4792899)
     # return  (93.24613464596311*(Rs/Ro)**(-1.5895193211019845))*(f(20,65)/f(T,H))**(-1.5895193211019845)
 
-print(formula(75,31.8,meanRs, 5129.321305109535))
+print(formula(75,31.8,meanRs, 1000.6921305109535))
+
+print(formula(75,31.8,100, 1000.6921305109535))
