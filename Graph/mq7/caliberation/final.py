@@ -7,7 +7,7 @@ print("General Equation: Rs/Ro = a + b1*T + b2*T^2 + b3*H + b4*H^2 + b5*TH")
 # Estimated b5: 1.4963577356169694e-05
 
 
-def f(T, H):
+def f_mq7(T, H):
     a = 1.2094342542500245
     b1 = -0.01094546624860255
     b2 = 8.559231727624334e-05
@@ -17,29 +17,26 @@ def f(T, H):
     return (a + b1*T + b2*T**2 + b3*H + b4*H**2 + b5*T*H)
 
 
-# a * ppm^b = Rs/Ro
-# Estimated a: 93.24613464596311
-# Estimated b: -1.5895193211019845
 
-def getRatio(ppm):
+def getRatio_mq7(ppm):
     a = 22.679
     b = -.676
     return a * (ppm**b)
-
-experimentVal = getRatio(6)*f(31,63)/f(20,65)
+currentHumidity = 32
+currentTemperature = 67
+currentPpm = 2.8
+experimentVal = getRatio_mq7(currentPpm)*f_mq7(currentTemperature,currentHumidity)/f_mq7(20,65)
 meanRs=15033.893448275863
-meanRs=3000
+meanRs=5400
 calculatedRo=meanRs/experimentVal
-print("Calculated Ro: ", calculatedRo)
+print("Calculated Ro_mq7: ", calculatedRo)
 
 
 
 
 # Rs/Ro = a + b1*T + b2*T^2 + b3*H + b4*H^2 + b5*TH
-def formula(H,T,Rs,Ro=2962.049073305054):
-    return  (101.24201*(Rs/Ro)**(-1.4792899))*(f(20,65)/f(T,H))**(-1.4792899)
-    # return  (93.24613464596311*(Rs/Ro)**(-1.5895193211019845))*(f(20,65)/f(T,H))**(-1.5895193211019845)
+def formula_mq7(H,T,Rs,Ro=2962.049073305054):
+    return  (101.24201*(Rs/Ro)**(-1.4792899))*(f_mq7(20,65)/f_mq7(T,H))**(-1.4792899)
 
-print(formula(62,31.8,meanRs, 392.6921305109535))
+print(formula_mq7(currentHumidity,currentTemperature,meanRs, calculatedRo))
 
-print(formula(75,31.8,meanRs, 490.6921305109535))

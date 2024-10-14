@@ -8,11 +8,12 @@ df = pd.read_csv('feed.csv')
 df['created_at'] = pd.to_datetime(df['created_at'])
 
 # Constants for Ps calculation
-RL = 5.0 * 1000  # RL in ohms (5kΩ)
-VC = 5.0  # Circuit voltage (5V)
+RL = 1 * 1000  # RL in ohms (1kΩ)
+VC = 3.3  # Circuit voltage (3.3V)
 
 # Calculate Ps based on the formula
-df['Ps'] = ((df['field4'] + RL)**2 * VC**2) / df['field4']
+df['Ps'] = (VC**2 * df['field4']) / (df['field4'] + RL)
+
 
 # Calculate moving averages (window size = 3)
 df['LPG_MA'] = df['field1'].rolling(window=3).mean()

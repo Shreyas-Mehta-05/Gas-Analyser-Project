@@ -63,28 +63,6 @@ app.layout = html.Div(
     style={"backgroundColor": "#1E1E1E", "color": "white", "padding": "20px"},
     children=[
         # html.H1("Real-Time Sensor Data Dashboard", style={"textAlign": "center", "color": "#F2F2F2"}),
-
-        # html.Div([
-        #     html.Div([
-        #         html.H4("Temperature:", style={"color": "#FF6F61"}),
-        #         html.P(id="temp-display", children="-- °C", style={"color": "#FFFFFF"})
-        #     ], style={'width': '24%', 'display': 'inline-block', 'textAlign': 'center'}),
-
-        #     html.Div([
-        #         html.H4("Humidity:", style={"color": "#61AFFF"}),
-        #         html.P(id="hum-display", children="-- %", style={"color": "#FFFFFF"})
-        #     ], style={'width': '24%', 'display': 'inline-block', 'textAlign': 'center'}),
-
-        #     html.Div([
-        #         html.H4("CO:", style={"color": "#FFDD61"}),
-        #         html.P(id="co-display", children="-- ppm", style={"color": "#FFFFFF"})
-        #     ], style={'width': '24%', 'display': 'inline-block', 'textAlign': 'center'}),
-
-        #     html.Div([
-        #         html.H4("Resistance:", style={"color": "#61FF87"}),
-        #         html.P(id="rs-display", children="-- Ω", style={"color": "#FFFFFF"})
-        #     ], style={'width': '24%', 'display': 'inline-block', 'textAlign': 'center'})
-        # ]),
        html.H1("Real-Time Sensor Data Dashboard", 
         style={
             "textAlign": "center",
@@ -277,13 +255,52 @@ app.layout = html.Div(
     ]
 )
 
+
+
+#
+# Update temperature display
+@app.callback(
+    Output('temp-display', 'children'),
+    [Input('interval-component', 'n_intervals')]
+)
+def update_temperature(n):
+    temp_value = float(temperature_data[-1]) if temperature_data else 0
+    return f"{temp_value:.2f} °C"
+
+# Update humidity display
+@app.callback(
+    Output('hum-display', 'children'),
+    [Input('interval-component', 'n_intervals')]
+)
+def update_humidity(n):
+    hum_value = float(humidity_data[-1]) if humidity_data else 0
+    return f"{hum_value:.2f} %"
+
+# Update CO display
+@app.callback(
+    Output('co-display', 'children'),
+    [Input('interval-component', 'n_intervals')]
+)
+def update_co(n):
+    co_value = float(co_data[-1]) if co_data else 0
+    return f"{co_value:.2f} ppm"
+
+@app.callback(
+    Output('rs-display', 'children'),
+    [Input('interval-component', 'n_intervals')]
+)
+def update_resistance(n):
+    resistance_value = float(rs_data[-1]) if rs_data else 0
+    return f"{resistance_value:.2f} Ω"
+
 # Update temperature linear gauge display
 @app.callback(
     Output('temperature-gauge', 'figure'),
     [Input('interval-component', 'n_intervals')]
 )
 def update_temperature_gauge(n):
-    temperature_value = float(temperature_data) if temperature_data else 0
+    temperature_value = float(temperature_data[-1]) if temperature_data else 0
+    
     return {
         'data': [
             go.Indicator(
@@ -327,7 +344,7 @@ def update_temperature_gauge(n):
     [Input('interval-component', 'n_intervals')]
 )
 def update_humidity_gauge(n):
-    humidity_value = float(humidity_data) if humidity_data else 0
+    humidity_value = float(humidity_data[-1]) if humidity_data else 0
     return {
         'data': [
             go.Indicator(
@@ -455,19 +472,19 @@ def update_co_graph(n):
     [Input('interval-component', 'n_intervals')]
 )
 def update_co_gauge(n):
-    co_value = float(co_data) if co_data else 0
+    co_value = float(co_data[-1]) if co_data else 0
     return {
         'data': [
             go.Indicator(
                 mode="gauge+number",
                 value=co_value,
                 gauge={
-                    'axis': {'range': [0, 1000]},
+                    'axis': {'range': [0, 100]},
                     'bar': {'color': "#00FF00"},  # Color of the gauge needle
                     'steps': [
-                        {'range': [0, 500], 'color': "#FFC371"},  # Green for low CO levels
-                        {'range': [500, 750], 'color': "#FF6347"},  # Yellow for medium levels
-                        {'range': [750, 1000], 'color': "#FF0000"}  # Red for high levels
+                        {'range': [0, 50], 'color': "#FFC371"},  # Green for low CO levels
+                        {'range': [50, 75], 'color': "#FF6347"},  # Yellow for medium levels
+                        {'range': [75, 100], 'color': "#FF0000"}  # Red for high levels
                     ],
                     'threshold': {
                         'line': {'color': "red", 'width': 4},
@@ -486,8 +503,12 @@ def update_co_gauge(n):
             width=300    # Resize the gauge
         )
     }
+    
+
+
 
 # Toggle buzzer
+mqtt_client = setup_mqtt()
 @app.callback(
     Output('buzzer-button', 'children'),
     [Input('buzzer-button', 'n_clicks')]
@@ -498,7 +519,6 @@ def toggle_buzzer(n_clicks):
     return  "Emergency Alert!"
 
 # Start the MQTT client and run the Dash app
-# client = setup_mqtt()
 
 if __name__ == '__main__':
     app.run_server(debug=True)
