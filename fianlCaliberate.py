@@ -56,9 +56,10 @@ def formula_mq136(H, T, Rs_mq136, Ro_mq136=2962.049073305054):
 if __name__ == "__main__":
     currentHumidity = 32
     currentTemperature = 67
-    currentPpm = 0.5
-    meanRs = 5400
-
+    
+    # MQ9 calculations => lp value is around 0.4
+    currentPpm = 0.4
+    meanRs = 670
     # MQ9 calculations
     experimentVal_mq9 = getRatio_mq9(currentPpm) * f_mq9(currentTemperature, currentHumidity) / f_mq9(20, 65)
     calculatedRo_mq9 = meanRs / experimentVal_mq9
@@ -66,8 +67,8 @@ if __name__ == "__main__":
     print(formula_mq9(currentHumidity, currentTemperature, meanRs, calculatedRo_mq9))
 
     # MQ7 calculations
-    currentPpm_mq7 = 0.4 # lpg value is around 0.4
-    meanRs = 5400
+    currentPpm_mq7 = 6 # co value is around 0.4
+    meanRs = 2600
     experimentVal_mq7 = getRatio_mq7(currentPpm_mq7) * f_mq7(currentTemperature, currentHumidity) / f_mq7(20, 65)
     calculatedRo_mq7 = meanRs / experimentVal_mq7
     print("Calculated Ro_mq7: ", calculatedRo_mq7)
@@ -75,7 +76,7 @@ if __name__ == "__main__":
 
     # MQ136 calculations --> h2s value is around 0.3
     currentPpm_mq136 = 0.3
-    meanRs = 5400
+    meanRs = 2700
     experimentVal_mq136 = getRatio_mq136(currentPpm_mq136) * f_mq136(currentTemperature, currentHumidity) / f_mq136(20, 65)
     calculatedRo_mq136 = meanRs / experimentVal_mq136
     print("Calculated Ro_mq136: ", calculatedRo_mq136)
