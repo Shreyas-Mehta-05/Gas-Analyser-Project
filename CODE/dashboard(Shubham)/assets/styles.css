@@ -1,0 +1,22 @@
+#buzzer-button {
+    background-color: #FF4136;
+    color: white;
+    padding: 15px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#buzzer-button:hover {
+    background-color: #FF6347; /* Change color on hover */
+    
+}
+
+body {
+    background-color: rgb(2, 2, 2);
+}
+
+
